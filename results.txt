@@ -1,0 +1,158 @@
+Using Colab cache for faster access to the 'creditcardfraud' dataset.
+Downloaded from Kaggle to /kaggle/input/creditcardfraud
+======================================================================
+1. DATASET
+======================================================================
+Rows: 284,807   Features: 30   Missing values: 0
+Fraud: 492 (0.173%)   Legitimate: 284,315
+  saved outputs/class_distribution.png
+  saved outputs/amount_distribution.png
+
+======================================================================
+2. MANN-WHITNEY U TESTS (fraud vs legitimate, all rows)
+======================================================================
+Bonferroni alpha = 0.05 / 30 = 0.00167
+Features significant after correction: 24 of 30
+Not significant: V26, V23, V25, V13, V15, V22
+
+All features, sorted by effect size |r| (rank-biserial; positive = higher in fraud):
+  V14     r = -0.898   p = 1.47e-260   significant
+  V4      r = +0.877   p = 3.63e-248   significant
+  V12     r = -0.874   p = 8.42e-247   significant
+  V11     r = +0.836   p = 4.91e-226   significant
+  V10     r = -0.828   p = 9.61e-222   significant
+  V3      r = -0.824   p = 1.21e-219   significant
+  V2      r = +0.710   p = 1.65e-163   significant
+  V16     r = -0.694   p = 1.81e-156   significant
+  V9      r = -0.688   p = 8.94e-154   significant
+  V7      r = -0.672   p = 1.46e-146   significant
+  V17     r = -0.616   p = 9.22e-124   significant
+  V1      r = -0.590   p = 1.74e-113   significant
+  V6      r = -0.534   p = 2.23e-93   significant
+  V21     r = +0.493   p = 8.67e-80   significant
+  V18     r = -0.485   p = 2.65e-77   significant
+  V5      r = -0.419   p = 3.05e-58   significant
+  V27     r = +0.394   p = 1.41e-51   significant
+  V8      r = +0.316   p = 8.51e-34   significant
+  V19     r = +0.313   p = 2.40e-33   significant
+  V20     r = +0.300   p = 1.13e-30   significant
+  V28     r = +0.284   p = 1.20e-27   significant
+  Time    r = -0.163   p = 4.39e-10   significant
+  V24     r = -0.128   p = 9.42e-07   significant
+  Amount  r = -0.116   p = 8.58e-06   significant
+  V26     r = +0.076   p = 3.53e-03   not significant
+  V23     r = -0.070   p = 7.42e-03   not significant
+  V25     r = +0.065   p = 1.25e-02   not significant
+  V13     r = -0.051   p = 5.12e-02   not significant
+  V15     r = -0.039   p = 1.30e-01   not significant
+  V22     r = +0.029   p = 2.66e-01   not significant
+
+======================================================================
+3. TRAIN/TEST SPLIT
+======================================================================
+Training set size: 227,845 (394 fraud)
+Testing set size:  56,962 (98 fraud)
+After SMOTE - Training set: 454,902 (227,451 fraud)
+(SMOTE is refitted inside every cross-validation fold; the test set is never resampled.)
+
+======================================================================
+4. SUPERVISED MODELS
+======================================================================
+
+LR class-weighted: cross-validating ...
+  fold 1/5  PR-AUC 0.790
+  fold 2/5  PR-AUC 0.740
+  fold 3/5  PR-AUC 0.668
+  fold 4/5  PR-AUC 0.810
+  fold 5/5  PR-AUC 0.721
+  fitting on the full training set ...
+
+LR class-weighted
+  Cross-validation PR-AUC: 0.746 +/- 0.051
+  Tuned threshold (max F1 on out-of-fold predictions): 1.000000
+  Test PR-AUC: 0.716   Test ROC-AUC: 0.972
+  Test @ default 0.5:        caught  90 of 98 fraud,  1386 false alarms | precision 6.1%  recall 91.8%  F1 0.114
+  Test @ tuned threshold:    caught  78 of 98 fraud,    16 false alarms | precision 83.0%  recall 79.6%  F1 0.812
+
+LR SMOTE: cross-validating ...
+  fold 1/5  PR-AUC 0.797
+  fold 2/5  PR-AUC 0.739
+  fold 3/5  PR-AUC 0.681
+  fold 4/5  PR-AUC 0.802
+  fold 5/5  PR-AUC 0.721
+  fitting on the full training set ...
+
+LR SMOTE
+  Cross-validation PR-AUC: 0.748 +/- 0.046
+  Tuned threshold (max F1 on out-of-fold predictions): 1.000000
+  Test PR-AUC: 0.725   Test ROC-AUC: 0.970
+  Test @ default 0.5:        caught  90 of 98 fraud,  1461 false alarms | precision 5.8%  recall 91.8%  F1 0.109
+  Test @ tuned threshold:    caught  78 of 98 fraud,    16 false alarms | precision 83.0%  recall 79.6%  F1 0.812
+
+RF class-weighted: cross-validating ...
+  fold 1/5  PR-AUC 0.848
+  fold 2/5  PR-AUC 0.816
+  fold 3/5  PR-AUC 0.826
+  fold 4/5  PR-AUC 0.868
+  fold 5/5  PR-AUC 0.838
+  fitting on the full training set ...
+
+RF class-weighted
+  Cross-validation PR-AUC: 0.839 +/- 0.018
+  Tuned threshold (max F1 on out-of-fold predictions): 0.330000
+  Test PR-AUC: 0.864   Test ROC-AUC: 0.957
+  Test @ default 0.5:        caught  74 of 98 fraud,     4 false alarms | precision 94.9%  recall 75.5%  F1 0.841
+  Test @ tuned threshold:    caught  82 of 98 fraud,     5 false alarms | precision 94.3%  recall 83.7%  F1 0.886
+
+RF SMOTE: cross-validating ...
+  fold 1/5  PR-AUC 0.812
+  fold 2/5  PR-AUC 0.778
+  fold 3/5  PR-AUC 0.760
+  fold 4/5  PR-AUC 0.853
+  fold 5/5  PR-AUC 0.805
+  fitting on the full training set ...
+
+RF SMOTE
+  Cross-validation PR-AUC: 0.802 +/- 0.032
+  Tuned threshold (max F1 on out-of-fold predictions): 0.845250
+  Test PR-AUC: 0.813   Test ROC-AUC: 0.981
+  Test @ default 0.5:        caught  84 of 98 fraud,   107 false alarms | precision 44.0%  recall 85.7%  F1 0.581
+  Test @ tuned threshold:    caught  76 of 98 fraud,    19 false alarms | precision 80.0%  recall 77.6%  F1 0.788
+
+======================================================================
+5. ISOLATION FOREST
+======================================================================
+  Contamination = training fraud rate = 0.00173
+  Test PR-AUC: 0.178   Test ROC-AUC: 0.960
+  Test:                      caught  33 of 98 fraud,    76 false alarms | precision 30.3%  recall 33.7%  F1 0.319
+
+======================================================================
+6. TABLE 1 - TEST SET PERFORMANCE (n = 56,962; 98 fraud cases)
+======================================================================
+  Model                Threshold          Precision   Recall      F1   PR-AUC
+  Logistic Regression  Tuned (1.0000)         83.0%    79.6%   81.2%    0.716
+  Random Forest        Tuned (0.33)           94.3%    83.7%   88.6%    0.864
+  Isolation Forest     Contamination          30.3%    33.7%   31.9%    0.178
+  saved outputs/confusion_matrices.png
+  saved outputs/roc_pr_curves.png
+  saved outputs/model_performance.png
+  saved outputs/feature_importances.png
+
+======================================================================
+7. RANDOM FOREST FEATURE IMPORTANCES (class-weighted model, top 15)
+======================================================================
+  V14     0.1892
+  V12     0.1139
+  V4      0.1088
+  V10     0.0900
+  V17     0.0834
+  V11     0.0830
+  V3      0.0542
+  V16     0.0358
+  V7      0.0272
+  V2      0.0264
+  V18     0.0167
+  V21     0.0136
+  Amount  0.0121
+  V9      0.0121
+  V19     0.0118
