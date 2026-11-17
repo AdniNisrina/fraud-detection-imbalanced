@@ -1,0 +1,14 @@
+# Dataset (150 MB): download from Kaggle instead
+creditcard.csv
+*.csv
+
+# Run outputs
+outputs/
+fraud_outputs.zip
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
